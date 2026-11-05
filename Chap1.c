@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <limits.h>
 
 void detab(int tabstop);
 void entab(int tabstop);
+void fold(int n, int tabtop);
 
 
 int fahtoCel(int cel) {
@@ -132,7 +134,12 @@ int main() {
     // entab(8);
 
 // E1.22
-    fold(20, 8);
+    // fold(20, 8);
+
+// E2.1
+    print_ranges();
+
+
 return 0;
 }
 // E1.16
@@ -290,14 +297,14 @@ void fold(int n, int tabstop)
             putchar('\n');
             col = 0;
         } else if(c == '\t') {
-            int nxt = col + tabstop - (col%tabstop);
+            int jump = tabstop - (col%tabstop);
+            int nxt = col + jump;
             if (nxt > n) {
                 putchar('\n');
                 col = 0;
-            } else {
-                putchar('\t');
-                col = col + tabstop - (col%tabstop);
             }
+            putchar('\t');
+            col += jump;
         } else if (c == ' ') {
             if (col >= n){
                 putchar('\n');
@@ -310,11 +317,13 @@ void fold(int n, int tabstop)
             if (col >= n) {
                 putchar('\n');
                 col = 0;
-            } else {
-                col++;
             }
+            col++;
             putchar(c);
         }
         
     }
 }
+
+
+
